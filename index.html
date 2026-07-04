@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TapLens Privacy Policy</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+         max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 4rem; line-height: 1.6; color: #1f2328; }
+  h1 { font-size: 1.8rem; border-bottom: 1px solid #d1d9e0; padding-bottom: .4rem; }
+  h2 { font-size: 1.25rem; margin-top: 2rem; }
+  a { color: #0969da; }
+  code { background: #f6f8fa; padding: .1em .3em; border-radius: 4px; font-size: .95em; }
+  hr { border: none; border-top: 1px solid #d1d9e0; margin: 2rem 0; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0d1117; color: #e6edf3; }
+    h1, hr { border-color: #30363d; }
+    a { color: #4493f8; }
+    code { background: #161b22; }
+  }
+</style>
+</head>
+<body>
+<h1>TapLens Privacy Policy</h1>
+
+<p><strong>Effective date:</strong> July 4, 2026</p>
+
+<p>TapLens (&ldquo;the app&rdquo;) is developed and operated by <strong>Hakan Ergin</strong>, an individual developer based in Turkey (&ldquo;we&rdquo;, &ldquo;us&rdquo;). This policy explains what data TapLens processes, why, and what your choices are.</p>
+
+<p><strong>Contact:</strong> hakan.ergin@gmail.com</p>
+
+<h2>What TapLens does</h2>
+
+<p>TapLens is an Android screen translator. When you tap its floating button, it captures the current screen, recognizes the text on it, translates that text, and shows the translation as an overlay.</p>
+
+<h2>Screen content and translations</h2>
+
+<p>This is the most sensitive data the app touches, so here is exactly what happens:</p>
+
+<ul>
+<li><strong>Screen capture happens only when you act.</strong> A screenshot is taken only when you tap the TapLens floating button (or use its translate gestures) while the translator is enabled. TapLens does not record your screen in the background.</li>
+<li><strong>Screenshots never leave your device.</strong> Text recognition (OCR) runs entirely on your device using Google ML Kit. The captured image is processed in memory and discarded.</li>
+<li><strong>Only recognized text is sent for translation.</strong> The text extracted from the screen is sent over an encrypted connection (TLS) to our translation server, which forwards it to a third-party AI translation provider &mdash; currently one of <strong>Cerebras</strong>, <strong>Groq</strong>, <strong>Google (Gemini)</strong>, or <strong>DeepSeek</strong> &mdash; to produce the translation. These providers process the text in order to return a translation, under their own API terms and privacy policies, which you can review at their respective sites.</li>
+<li><strong>We do not store your text.</strong> Our server does not persist the text you translate or the translations returned. Server logs are deliberately restricted to counts and technical identifiers &mdash; never the content of what you translate.</li>
+<li><strong>Translations are cached on your device only</strong>, so repeated text does not need to be re-sent. Uninstalling the app deletes this cache.</li>
+</ul>
+
+<p><strong>Please avoid translating screens containing passwords, payment details, or other secrets.</strong> Although we do not store your text, it is transmitted for translation as described above.</p>
+
+<h2>Identifiers and account data</h2>
+
+<p>TapLens has no user accounts. To enforce fair-use limits and prevent abuse, the app uses:</p>
+
+<ul>
+<li><strong>An anonymous user ID</strong> (Firebase Anonymous Authentication) &mdash; a random identifier not linked to your name, email, or Google account.</li>
+<li><strong>App integrity tokens</strong> (Firebase App Check / Play Integrity) &mdash; used to verify requests come from a genuine copy of the app.</li>
+<li><strong>Usage counters</strong> &mdash; how many translations you have used today, stored on your device and on our server against your anonymous ID, to enforce the daily free quota and ad-based bonuses.</li>
+</ul>
+
+<h2>Advertising (Google AdMob)</h2>
+
+<p>The free version of TapLens shows ads via <strong>Google AdMob</strong>, including optional rewarded ads you can choose to watch for bonus translations. The AdMob SDK may collect your device&rsquo;s <strong>advertising ID</strong>, IP address, and device information to serve and measure ads. Where required (e.g. in the EEA/UK), you will be shown a consent form (Google User Messaging Platform) and can choose whether ads may be personalized. You can change or withdraw your consent at any time from the app&rsquo;s settings (&ldquo;Reset ad consent&rdquo;) and via your device&rsquo;s ad settings (reset/delete advertising ID).</p>
+
+<p>See Google&rsquo;s policies: <a href="https://policies.google.com/technologies/ads">https://policies.google.com/technologies/ads</a></p>
+
+<p>When you complete a rewarded ad, Google sends our server a signed confirmation containing your anonymous ID so we can credit the bonus translations. No screen content is involved in this.</p>
+
+<h2>Analytics</h2>
+
+<p>Release versions of TapLens use <strong>Google Firebase Analytics</strong> to collect aggregated usage events (e.g. feature usage, error rates) that help us improve the app. Analytics events are held until the consent flow completes and are subject to the same consent choices as advertising. They never include screen content or translated text.</p>
+
+<h2>Purchases</h2>
+
+<p>Pro subscriptions are handled by <strong>Google Play Billing</strong>. Google processes the payment; we never receive your card or bank details. We receive only what is needed to verify and honor your subscription.</p>
+
+<h2>Android permissions TapLens uses</h2>
+
+<ul>
+<li><strong>Display over other apps</strong> &mdash; to show the floating button and translation overlay.</li>
+<li><strong>Screen capture (MediaProjection)</strong> &mdash; requested each session via the Android system dialog; used only as described above.</li>
+<li><strong>Notifications</strong> &mdash; Android requires a persistent notification while the translator service is running; also used for quota-related notices you can disable.</li>
+</ul>
+
+<h2>Data sharing</h2>
+
+<p>We share data only with the processors named above (Google Firebase / AdMob / Play, and the translation providers Cerebras, Groq, Google Gemini, and DeepSeek), only to provide the app&rsquo;s functionality. We do <strong>not</strong> sell your data, and we do not share it with anyone else unless required by law.</p>
+
+<h2>Data retention</h2>
+
+<ul>
+<li>Screen text: not stored by us (processed transiently to return a translation).</li>
+<li>Anonymous ID and usage counters: kept while needed for quota enforcement and abuse prevention; daily counters reset every day.</li>
+<li>On-device data (settings, translation cache, counters): deleted when you clear the app&rsquo;s data or uninstall it.</li>
+</ul>
+
+<h2>Your rights</h2>
+
+<p>If you are in the EEA/UK, you have rights under the GDPR &mdash; including access, rectification, erasure, restriction, and objection &mdash; regarding personal data we process (in practice, the anonymous identifiers and usage data described above). Contact us at the email above to exercise them. You also have the right to lodge a complaint with your local data protection authority.</p>
+
+<p>Because TapLens uses an anonymous ID, we may be unable to link data to you unless you contact us from within the app context; some requests may therefore be technically impossible to fulfil, which we will explain if it applies.</p>
+
+<h2>Children</h2>
+
+<p>TapLens is not directed at children under 13 (or the applicable age of digital consent in your country), and we do not knowingly collect data from them.</p>
+
+<h2>Changes to this policy</h2>
+
+<p>We may update this policy as the app evolves. Material changes will be reflected here with an updated effective date, and where appropriate announced in the app.</p>
+
+<hr>
+
+<p><em>This policy applies to the TapLens Android app (package <code>app.taplens</code>).</em></p>
+</body>
+</html>
