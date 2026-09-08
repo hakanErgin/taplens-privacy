@@ -116,9 +116,9 @@ For this closed test, the current account state is a Groq Developer organization
 
 If you are in the EEA or UK, you may have rights under applicable data protection law, including access, rectification, erasure, restriction, and objection. You may also lodge a complaint with your local data protection authority.
 
-## Children
+## Age eligibility
 
-TapLens is not directed at children under 13 (or the applicable age of digital consent in your country), and we do not knowingly collect data from them.
+The TapLens 0.4.0 closed test is restricted to adults aged 18 or older. It is not intended for people under 18.
 
 ## Changes to this policy
 
