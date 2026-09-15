@@ -1,9 +1,9 @@
 # TapLens Privacy Policy
 
-**Version covered:** 0.4.0 closed test
-**Last updated:** September 8, 2026
+**Version covered:** 0.4.3 (version code 9) closed test
+**Last updated:** September 15, 2026
 
-This policy describes the TapLens Android app as configured for version 0.4.0 during its closed test. Earlier versions may have used different translation and provider behavior, so this page does not describe those versions.
+This policy describes the TapLens Android app as configured for version 0.4.3 (version code 9) during its closed test. Earlier versions may have used different translation and provider behavior, so this page does not describe those versions.
 
 ## Who we are
 
@@ -15,8 +15,8 @@ TapLens is a system-overlay translator. You tap a floating button while using an
 
 TapLens has two tiers:
 
-- **Free** translates on the device using Google ML Kit for the 18 directions where English is the source or target, across English, Spanish, French, German, Italian, Portuguese, Vietnamese, Japanese, Korean, and Chinese. The Free tier shows Google's test ad banner on the Home and Language Picker screens.
-- **Premium** translates online through the TapLens proxy for 90 language directions, supports automatic source-language detection, and has no ads.
+- **Free** translates on the device using Google ML Kit for 267 technically qualified on-device directions across 42 OCR-readable source languages and 59 ML Kit target languages, with 17 target-only languages. The gate is technical functionality only and does not certify semantic quality. The Free tier shows Google's test ad banner on the Home and Language Picker screens.
+- **Premium** translates online through the TapLens proxy for 90 language directions, supports automatic source-language detection (Auto), and has no ads.
 
 ## Screen capture and recognized text
 
@@ -25,7 +25,7 @@ Screen capture is the most sensitive operation TapLens performs:
 - **Capture happens only when you act.** TapLens requests a screen capture when you tap its floating button or use its translation gestures while the translator is enabled. It does not record your screen in the background.
 - **The captured image stays on the device.** Google ML Kit recognizes text on the device. The captured image is processed in memory and discarded after recognition; it is not uploaded by TapLens.
 - **Free translation stays on the device.** Recognized text is translated with the downloaded ML Kit language model. The recognized text and translation do not leave the device for this translation path.
-- **Premium translation uses the TapLens proxy.** Recognized text, the source and target language codes, your anonymous UID, your client IP address, and the App Check token are sent over HTTPS to the proxy. The UID and token are used for authentication and abuse prevention; the IP address is used for rate limiting. For the 0.4.0 closed test, the proxy's configured fallback chain is Groq's 120B model, Cerebras's 120B model, and Google's Gemini 2.5 Flash-Lite. A request is sent to the provider that handles that step of the chain. DeepSeek is not part of this version's configured route.
+- **Premium translation uses the TapLens proxy.** Recognized text, the source and target language codes, your anonymous UID, your client IP address, and the App Check token are sent over HTTPS to the proxy. The UID and token are used for authentication and abuse prevention; the IP address is used for rate limiting. For the 0.4.3 closed test, the proxy's configured fallback chain is Groq's 120B model, Cerebras's 120B model, and Google's Gemini 2.5 Flash-Lite. A request is sent to the provider that handles that step of the chain. DeepSeek is not part of this version's configured route.
 
 The proxy uses Upstash managed Redis for this cache and for operational state. Its translated-result cache uses a hash-derived key so identical phrases can be reused; the key does not contain the original request text, the cache is not linked to your Firebase UID, and it is configured to expire after 30 days. Separately, the proxy stores a short-lived response/idempotency record keyed by your anonymous UID and request key so a retry can safely replay a response; that record is distinct from the 30-day result cache. Provider logging and retention are separate from both records; see [Third parties](#third-parties).
 
@@ -118,7 +118,7 @@ If you are in the EEA or UK, you may have rights under applicable data protectio
 
 ## Age eligibility
 
-The TapLens 0.4.0 closed test is restricted to adults aged 18 or older. It is not intended for people under 18.
+The TapLens 0.4.3 closed test is restricted to adults aged 18 or older. It is not intended for people under 18.
 
 ## Changes to this policy
 
@@ -126,4 +126,4 @@ We may update this policy as TapLens changes. The last-updated date at the top w
 
 ---
 
-*This policy applies to the TapLens Android app (package `app.taplens`) and describes version 0.4.0's closed-test configuration.*
+*This policy applies to the TapLens Android app (package `app.taplens`) and describes the closed-test configuration of version 0.4.3 (version code 9).*
