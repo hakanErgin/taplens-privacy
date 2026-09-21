@@ -1,7 +1,7 @@
 # TapLens Privacy Policy
 
 **Version covered:** 0.4.3 (version code 9) closed test
-**Last updated:** September 15, 2026
+**Last updated:** September 15, 2027
 
 This policy describes the TapLens Android app as configured for version 0.4.3 (version code 9) during its closed test. Earlier versions may have used different translation and provider behavior, so this page does not describe those versions.
 
