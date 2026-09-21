@@ -1,3 +1,8 @@
+---
+layout: default
+title: TapLens Privacy Policy
+---
+
 # TapLens Privacy Policy
 
 **Version covered:** 0.4.3 (version code 9) closed test
