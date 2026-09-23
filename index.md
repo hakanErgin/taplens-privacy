@@ -5,10 +5,10 @@ title: TapLens Privacy Policy
 
 # TapLens Privacy Policy
 
-**Version covered:** 0.4.3 (version code 9) closed test
-**Last updated:** September 15, 2026
+**Version covered:** 0.4.4 (version code 10) closed test
+**Last updated:** September 23, 2026
 
-This policy describes the TapLens Android app as configured for version 0.4.3 (version code 9) during its closed test. Earlier versions may have used different translation and provider behavior, so this page does not describe those versions.
+This policy describes the TapLens Android app as configured for version 0.4.4 (version code 10) during its closed test. Earlier versions may have used different translation behavior, so this page does not describe those versions. Proxy routing, provider accounts, and hosting retention can change independently of the app; the configuration details below are dated to their last verification on September 15, 2026.
 
 ## Who we are
 
@@ -20,7 +20,7 @@ TapLens is a system-overlay translator. You tap a floating button while using an
 
 TapLens has two tiers:
 
-- **Free** translates on the device using Google ML Kit for 267 technically qualified on-device directions across 42 OCR-readable source languages and 59 ML Kit target languages, with 17 target-only languages. The gate is technical functionality only and does not certify semantic quality. The Free tier shows Google's test ad banner on the Home and Language Picker screens.
+- **Free** translates on the device using Google ML Kit for 3,422 ordered, non-self directions across 59 OCR-readable source languages and 59 ML Kit target languages, with no target-only languages. This is a technical-functionality/basic-quality gate, not a certification of semantic quality. The Free tier shows Google's test ad banner on the Home and Language Picker screens.
 - **Premium** translates online through the TapLens proxy for 90 language directions, supports automatic source-language detection (Auto), and has no ads.
 
 ## Screen capture and recognized text
@@ -28,9 +28,9 @@ TapLens has two tiers:
 Screen capture is the most sensitive operation TapLens performs:
 
 - **Capture happens only when you act.** TapLens requests a screen capture when you tap its floating button or use its translation gestures while the translator is enabled. It does not record your screen in the background.
-- **The captured image stays on the device.** Google ML Kit recognizes text on the device. The captured image is processed in memory and discarded after recognition; it is not uploaded by TapLens.
+- **The captured image stays on the device.** TapLens passes it to on-device OCR: Google ML Kit for its existing source-language families, or Tesseract with bundled model files for 17 other source languages. TapLens does not upload the captured image.
 - **Free translation stays on the device.** Recognized text is translated with the downloaded ML Kit language model. The recognized text and translation do not leave the device for this translation path.
-- **Premium translation uses the TapLens proxy.** Recognized text, the source and target language codes, your anonymous UID, your client IP address, and the App Check token are sent over HTTPS to the proxy. The UID and token are used for authentication and abuse prevention; the IP address is used for rate limiting. For the 0.4.3 closed test, the proxy's configured fallback chain is Groq's 120B model, Cerebras's 120B model, and Google's Gemini 2.5 Flash-Lite. A request is sent to the provider that handles that step of the chain. DeepSeek is not part of this version's configured route.
+- **Premium translation uses the TapLens proxy.** Recognized text, the source and target language codes, your anonymous UID, your client IP address, and the App Check token are sent over HTTPS to the proxy. The UID and token are used for authentication and abuse prevention; the IP address is used for rate limiting. At the September 15, 2026 verification, the proxy's configured fallback chain was Groq's 120B model, Cerebras's 120B model, and Google's Gemini 2.5 Flash-Lite. A request is sent to the provider that handles that step of the chain. DeepSeek was not part of that verified route; this does not establish the current route.
 
 The proxy uses Upstash managed Redis for this cache and for operational state. Its translated-result cache uses a hash-derived key so identical phrases can be reused; the key does not contain the original request text, the cache is not linked to your Firebase UID, and it is configured to expire after 30 days. Separately, the proxy stores a short-lived response/idempotency record keyed by your anonymous UID and request key so a retry can safely replay a response; that record is distinct from the 30-day result cache. Provider logging and retention are separate from both records; see [Third parties](#third-parties).
 
@@ -38,7 +38,7 @@ Please avoid translating screens containing passwords, payment details, or other
 
 ## ML Kit processing and metrics
 
-Google ML Kit processes the captured image, recognized text, and on-device translation inputs and outputs on the device. ML Kit may contact Google to download language packs, receive model updates, and check device compatibility. It also sends utilization and performance metrics to Google. Google's [ML Kit Terms & Privacy](https://developers.google.com/ml-kit/terms) and [ML Kit Android data-disclosure guidance](https://developers.google.com/ml-kit/android-data-disclosure) describe categories such as device and application information, device or other identifiers, latency and other performance metrics, API configuration, feature input and output size, feature version, event type, error codes, and for translation, configured source and target languages. Those published categories do not list the recognized screen text or captured image as a metric field. TapLens does not control the exact metric payload or its retention period.
+For source languages routed to ML Kit OCR, Google ML Kit processes the captured image and recognized text on the device. For the other 17 source languages, Tesseract uses model files bundled with the app for on-device OCR; it does not need to download those models. ML Kit processes Free on-device translation inputs and outputs for both OCR routes. ML Kit may contact Google to download translation language packs, receive model updates, and check device compatibility. It also sends utilization and performance metrics to Google. Google's [ML Kit Terms & Privacy](https://developers.google.com/ml-kit/terms) and [ML Kit Android data-disclosure guidance](https://developers.google.com/ml-kit/android-data-disclosure) describe categories such as device and application information, device or other identifiers, latency and other performance metrics, API configuration, feature input and output size, feature version, event type, error codes, and for translation, configured source and target languages. Those published categories do not list the recognized screen text or captured image as a metric field. TapLens does not control the exact metric payload or its retention period.
 
 ## Identifiers and account data
 
@@ -81,10 +81,10 @@ Pro subscriptions are handled by **Google Play Billing**. Google processes the p
 TapLens shares data with the following processors only to provide, secure, and measure the app's functionality. We do not sell your data or share it with anyone else unless required by law.
 
 - **Google Firebase** (Authentication, App Check, Crashlytics, and Analytics) receives the anonymous UID, attestation data, crash diagnostics, and consent-gated analytics events.
-- **Google ML Kit** processes screen images, recognized text, and on-device translations locally. It may receive language-pack requests and the utilization metrics described above; TapLens does not upload the captured image or recognized text to ML Kit for translation.
+- **Google ML Kit** processes screen images for its OCR source-language families and on-device translations for both OCR routes. It may receive language-pack requests and the utilization metrics described above; TapLens does not upload the captured image or recognized text to ML Kit for translation. Tesseract processes the other 17 OCR source languages on the device using bundled models.
 - **Google AdMob and UMP** receive advertising and device information and consent status to serve the test banner and obtain consent where required.
 - **Google Play Billing** receives and returns purchase information. TapLens does not receive payment details.
-- **Google Cloud Run and Cloud Logging** host the TapLens proxy and receive hosting and request metadata, which can include the client IP address, route, status, latency, and operational log records. The current Cloud Logging `_Default` bucket is configured to retain its records for 30 days.
+- **Google Cloud Run and Cloud Logging** host the TapLens proxy and receive hosting and request metadata, which can include the client IP address, route, status, latency, and operational log records. At the September 15 verification, the Cloud Logging `_Default` bucket was configured to retain its records for 30 days.
 - **Upstash managed Redis** receives the Premium translated-result hash cache, anonymous-UID-linked quota and short-lived retry/idempotency records, and IP-based rate-limit state.
 - **Sentry** receives backend error and sampled performance diagnostics. Translation request bodies are reduced to language codes and counts before error events are sent; no Sentry retention period is promised here.
 - **The TapLens proxy** receives recognized text, source and target language codes, your anonymous UID, client IP address, and App Check token for Premium requests. It may retain the translated result in the hash-derived cache described above.
@@ -92,13 +92,13 @@ TapLens shares data with the following processors only to provide, secure, and m
 
 The proxy's application logs use structured request summaries. They redact the authorization and App Check headers and the raw request blocks and response results, while recording validation outcomes, languages, counts, status, timing, and provider outcome for operations. This application-level redaction does not mean that every Cloud Run or Cloud Logging record strips all provider-managed request metadata.
 
-For this closed test, the current account state is a Groq Developer organization, a Cerebras account with purchased credits, and a Google Gemini API project on Paid Tier 1 with prepaid credits. These billing facts do not by themselves establish a provider's zero-data-retention setting, logging choice, training use, or storage region.
+At the September 15 verification, the account state was a Groq Developer organization, a Cerebras account with purchased credits, and a Google Gemini API project on Paid Tier 1 with prepaid credits. These historical billing facts do not establish the current account state or a provider's zero-data-retention setting, logging choice, training use, or storage region.
 
 ### Provider privacy terms
 
 - **Groq.** Groq's [Your Data](https://console.groq.com/docs/your-data) page says inference requests are not retained by default, but temporary reliability or suspected-abuse logs may retain inputs and outputs for up to 30 days, unless law requires longer. Groq describes [Zero Data Retention (ZDR)](https://console.groq.com/docs/your-data) as a control that disables that reliability and abuse retention for eligible customers, and its [Services Agreement](https://console.groq.com/docs/legal/services-agreement) says inputs and outputs are not used for training or fine-tuning unless the customer explicitly grants permission or instructs Groq. This policy does not represent ZDR as enabled for TapLens and does not guarantee zero retention.
 - **Cerebras.** Cerebras's [retention explanation](https://support.cerebras.net/articles/1811589793-does-cerebras-retain-my-data) says it does not retain prompt content, API requests and responses, chat or transaction logs, or user input and model output, while retaining operational account and usage metrics. Its [privacy policy](https://www.cerebras.ai/privacy-policy) and [Terms of Use](https://www.cerebras.ai/terms-of-service) provide additional qualifications. These public statements do not establish every setting, route, or storage region of the TapLens account.
-- **Google Gemini Developer API.** The current Gemini project uses Google's paid service with active billing and prepaid credits. Google's [Gemini API Terms](https://ai.google.dev/gemini-api/terms) say paid services do not use prompts or responses to improve Google products, but may log them for prohibited-use detection, safety, security, and legal or regulatory disclosures. Such data may be transiently stored or cached in countries where Google or its agents maintain facilities. Google's [ZDR guidance](https://ai.google.dev/gemini-api/docs/zdr) describes an approved project control that sanitizes content before abuse-monitoring logs; it does not remove feature-specific storage. Google's [logs policy](https://ai.google.dev/gemini-api/docs/logs-policy) describes a configurable maximum retention for billing-enabled project logs. TapLens does not represent ZDR as approved or enabled and does not promise a particular Gemini retention period or region.
+- **Google Gemini Developer API.** At the September 15 verification, the Gemini project used Google's paid service with active billing and prepaid credits. Google's [Gemini API Terms](https://ai.google.dev/gemini-api/terms) say paid services do not use prompts or responses to improve Google products, but may log them for prohibited-use detection, safety, security, and legal or regulatory disclosures. Such data may be transiently stored or cached in countries where Google or its agents maintain facilities. Google's [ZDR guidance](https://ai.google.dev/gemini-api/docs/zdr) describes an approved project control that sanitizes content before abuse-monitoring logs; it does not remove feature-specific storage. Google's [logs policy](https://ai.google.dev/gemini-api/docs/logs-policy) describes a configurable maximum retention for billing-enabled project logs. TapLens does not represent ZDR as approved or enabled and does not promise a particular Gemini retention period or region.
 
 ## Data retention
 
@@ -106,15 +106,15 @@ For this closed test, the current account state is a Groq Developer organization
 - Separately, Upstash stores a short-lived response/idempotency record keyed by the anonymous UID and request key for retry safety. This record is distinct from the 30-day translated-result cache; quota and IP-based rate-limit state are also stored there under the proxy's operational TTLs.
 - Premium source text is sent to the provider selected by the proxy. Provider retention follows the terms and account settings described above; TapLens does not establish one provider-retention period for every request.
 - The anonymous UID and usage counters are kept while needed for per-install rate limiting and abuse prevention. Daily usage counters reset each day.
-- Cloud Logging's current `_Default` bucket is configured for 30-day retention. This is hosting-log retention and does not establish a retention period for provider, Upstash, or Sentry data.
+- At the September 15 verification, Cloud Logging's `_Default` bucket was configured for 30-day retention. This is hosting-log retention and does not establish a retention period for provider, Upstash, or Sentry data.
 - Sentry retention follows its service and account settings; TapLens does not promise a retention period for Sentry diagnostics.
 - Crashlytics starts removal of crash stack traces, extracted minidump data, and associated identifiers after its published 90-day period; see [Firebase's privacy and security guidance](https://firebase.google.com/support/privacy).
-- Language settings, render preferences, and downloaded language packs remain on your device until you delete them, clear app data, or uninstall TapLens.
+- Language settings, render preferences, and downloaded translation language packs remain on your device until you delete them, clear app data, or uninstall TapLens. The bundled Tesseract OCR models ship inside the app and are removed when you uninstall it; clearing app data removes any extracted copies.
 
 ## Your choices and rights
 
 - Where UMP requires it, reopen consent choices from **Home → Privacy and cookie settings**. You can decline or withdraw analytics and personalized-ad consent.
-- Delete downloaded language packs from the Language Picker screen.
+- Delete downloaded translation language packs from the Language Picker screen. Bundled OCR models are part of the app and cannot be deleted there.
 - Reset or opt out of your advertising ID in Android settings.
 - Uninstall the app or clear its app data to remove data stored on your device.
 - Contact **hakan.ergin@gmail.com** to ask what data is associated with your anonymous UID or to request deletion from TapLens records. Because the UID is anonymous, TapLens may be unable to link a request to you or fulfill it in every case; we will explain if that applies.
@@ -123,7 +123,7 @@ If you are in the EEA or UK, you may have rights under applicable data protectio
 
 ## Age eligibility
 
-The TapLens 0.4.3 closed test is restricted to adults aged 18 or older. It is not intended for people under 18.
+The TapLens 0.4.4 closed test is restricted to adults aged 18 or older. It is not intended for people under 18.
 
 ## Changes to this policy
 
@@ -131,4 +131,4 @@ We may update this policy as TapLens changes. The last-updated date at the top w
 
 ---
 
-*This policy applies to the TapLens Android app (package `app.taplens`) and describes the closed-test configuration of version 0.4.3 (version code 9).*
+*This policy applies to the TapLens Android app (package `app.taplens`) and describes the closed-test configuration of version 0.4.4 (version code 10).*
