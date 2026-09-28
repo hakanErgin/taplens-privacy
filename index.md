@@ -90,7 +90,7 @@ The release app uses Google Firebase Analytics for app-usage events such as feat
 - **Screen capture (MediaProjection)** — requested through the Android system dialog and used only as described above.
 - **Notifications** — Android requires a persistent notification while the translator service is running; TapLens also uses notifications for app notices that you can disable.
 - **Network access** — to download language packs, reach the TapLens server for Premium, verify subscriptions, and load ads in the Free tier.
-- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK and used only for ads in the Free tier, as described in [Advertising and consent](#advertising-and-consent).
+- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK, which may access the advertising ID for ad serving and measurement. Ads are shown only in the Free tier; in 0.4.7 (13), the SDK could also start in Premium or before the app knew your tier, as described in [Advertising and consent](#advertising-and-consent).
 
 ## Third parties
 
@@ -163,7 +163,7 @@ If you are in the EEA or UK, you also have rights under the GDPR, including acce
 
 ## U.S. state privacy rights
 
-If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To opt out, use Home → Privacy and cookie settings where shown, reset or delete your advertising ID in Android settings, or contact hakan.ergin@gmail.com. We will not treat you differently for exercising these rights.
+If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To request an opt-out, use Home → Privacy and cookie settings where shown or contact hakan.ergin@gmail.com. You can also reset or delete your advertising ID in Android settings to limit use of that identifier. We will not treat you differently for exercising these rights.
 
 ## Children and age
 
