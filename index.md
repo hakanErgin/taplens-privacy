@@ -94,7 +94,7 @@ The release app uses Google Firebase Analytics for app-usage events such as feat
 
 ## Third parties
 
-TapLens shares data with the following processors only to provide, secure, and measure the app's functionality. We do not sell your data for money, and we do not share it with anyone other than the processors below unless required by law. See [U.S. state privacy rights](#us-state-privacy-rights) for how personalized ads are treated under some U.S. laws.
+TapLens shares data with the following service providers only to provide, secure, and measure the app's functionality. Most of them process data on our behalf. Google acts as an independent controller for AdMob advertising and for Google Play purchases, under [Google's Privacy Policy](https://policies.google.com/privacy). We do not sell your data for money, and we do not share it with anyone other than these providers unless required by law. See [U.S. state privacy rights](#us-state-privacy-rights) for how personalized ads are treated under some U.S. laws.
 
 - **Google Firebase** (Authentication, App Check, Crashlytics, Analytics, and Remote Config) receives the anonymous UID, attestation data, crash diagnostics, consent-gated analytics events, and configuration requests.
 - **Google ML Kit** processes screen images for its OCR scripts and all on-device translations. It may receive language-pack requests and the utilization metrics described above. Tesseract processes the other OCR source languages on the device.
