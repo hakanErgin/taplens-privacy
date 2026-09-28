@@ -133,8 +133,8 @@ Provider account settings (paid tiers, retention controls, and regions) were ver
 We process personal data on the following legal bases under KVKK Article 5 and, for users in the EEA and UK, GDPR Article 6:
 
 - **Performance of a contract:** to provide the app, Premium cloud translation, and subscription verification you request (KVKK Art. 5(2)(c); GDPR Art. 6(1)(b)).
-- **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports, and to fund the Free tier with non-personalized or limited ads (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
-- **Explicit consent:** for personalized ads and Firebase Analytics (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings; withdrawal does not affect processing before it.
+- **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports; to fund the Free tier with non-personalized or limited ads; and, where consent is not required, to measure app usage with Firebase Analytics (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
+- **Explicit consent:** for personalized ads and Firebase Analytics where consent is required and you give it (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings when that setting is shown, or by contacting hakan.ergin@gmail.com; withdrawal does not affect processing before it.
 - **Legal obligation:** where we must keep or disclose data by law (KVKK Art. 5(2)(ç); GDPR Art. 6(1)(c)).
 
 ## Transfers abroad
