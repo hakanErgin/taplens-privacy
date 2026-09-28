@@ -140,7 +140,7 @@ If you are in the EEA or UK, you may have rights under applicable data protectio
 
 ## Children and age
 
-TapLens has no age restriction and does not ask your age. It is designed for a general audience aged 13 and older and is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has used TapLens, contact **hakan.ergin@gmail.com** and we will delete associated data where we can identify it.
+TapLens is designed for adults aged 18 and older and is not directed at children. It does not ask your age and does not block younger users from installing it. We do not knowingly collect personal information from children. If you believe a child has used TapLens, contact **hakan.ergin@gmail.com** and we will delete associated data where we can identify it.
 
 In some countries, users below the local age of digital consent need a parent's or guardian's permission for processing that relies on consent, such as personalized ads and analytics.
 
