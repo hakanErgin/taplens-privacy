@@ -6,7 +6,7 @@ title: TapLens Privacy Policy
 # TapLens Privacy Policy
 
 **Version covered:** 0.4.7 (version code 13) and later, until this page says otherwise
-**Last updated:** [set to the publication date]
+**Last updated:** September 28, 2026
 
 This policy describes the TapLens Android app from version 0.4.7 (version code 13): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions used different translation, subscription, and ad behavior, so this page does not describe them. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last verified on September 27, 2026.
 
@@ -108,7 +108,7 @@ The server's request logs record counts, language codes, timing, status, cache a
 
 ### Provider privacy terms
 
-Provider account settings (paid tiers, retention controls, and regions) were last verified on September 15, 2026 and can change. At that verification, the account state was a Groq Developer organization, a Cerebras account with purchased credits, and a Google Gemini API project on Paid Tier 1 with prepaid credits. These facts do not establish a provider's zero-data-retention setting, logging choice, training use, or storage region. The public provider pages summarized below were last checked on September 27, 2026.
+Provider account settings (paid tiers, retention controls, and regions) were verified on September 15, 2026, confirmed unchanged on September 28, 2026, and can change. The account state is a Groq Developer organization, a Cerebras account with purchased credits, and a Google Gemini API project on Paid Tier 1 with prepaid credits. These facts do not establish a provider's zero-data-retention setting, logging choice, training use, or storage region. The public provider pages summarized below were last checked on September 27, 2026.
 
 - **Groq.** Groq's [Your Data](https://console.groq.com/docs/your-data) page says inference requests are not retained by default, but temporary reliability or suspected-abuse logs may retain inputs and outputs for up to 30 days, unless law requires longer. Groq describes [Zero Data Retention (ZDR)](https://console.groq.com/docs/your-data) as a Data Controls setting that any customer may turn on to stop that retention, which also disables features that depend on retained data, and its [Services Agreement](https://console.groq.com/docs/legal/services-agreement) says inputs and outputs are not used for training or fine-tuning unless the customer explicitly grants permission or instructs Groq. This policy does not represent ZDR as enabled for TapLens and does not guarantee zero retention.
 - **Cerebras.** Cerebras's [retention explanation](https://support.cerebras.net/articles/1811589793-does-cerebras-retain-my-data) says it does not retain prompt content, API requests and responses, chat or transaction logs, or user input and model output, while retaining operational account and usage metrics. Its [privacy policy](https://www.cerebras.ai/privacy-policy) and [Terms of Use](https://www.cerebras.ai/terms-of-service) provide additional qualifications. These public statements do not establish every setting, route, or storage region of the TapLens account.
@@ -138,9 +138,11 @@ Provider account settings (paid tiers, retention controls, and regions) were las
 
 If you are in the EEA or UK, you may have rights under applicable data protection law, including access, rectification, erasure, restriction, and objection. You may also lodge a complaint with your local data protection authority.
 
-## Age eligibility
+## Children and age
 
-TapLens is intended for adults aged 18 or older. It is not intended for people under 18.
+TapLens has no age restriction and does not ask your age. It is designed for a general audience aged 13 and older and is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has used TapLens, contact **hakan.ergin@gmail.com** and we will delete associated data where we can identify it.
+
+In some countries, users below the local age of digital consent need a parent's or guardian's permission for processing that relies on consent, such as personalized ads and analytics.
 
 ## Changes to this policy
 
