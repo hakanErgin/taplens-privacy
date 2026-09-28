@@ -90,11 +90,11 @@ The release app uses Google Firebase Analytics for app-usage events such as feat
 - **Screen capture (MediaProjection)** — requested through the Android system dialog and used only as described above.
 - **Notifications** — Android requires a persistent notification while the translator service is running; TapLens also uses notifications for app notices that you can disable.
 - **Network access** — to download language packs, reach the TapLens server for Premium, verify subscriptions, and load ads in the Free tier.
-- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK and used only for ads in the Free tier, as described in [Advertising and consent](#advertising-and-consent).
+- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK, which may access the advertising ID for ad serving and measurement. Ads are shown only in the Free tier; in 0.4.7 (13), the SDK could also start in Premium or before the app knew your tier, as described in [Advertising and consent](#advertising-and-consent).
 
 ## Third parties
 
-TapLens shares data with the following processors only to provide, secure, and measure the app's functionality. We do not sell your data for money, and we do not share it with anyone other than the processors below unless required by law. See [U.S. state privacy rights](#us-state-privacy-rights) for how personalized ads are treated under some U.S. laws.
+TapLens shares data with the following service providers only to provide, secure, and measure the app's functionality. Most of them process data on our behalf. Google acts as an independent controller for AdMob advertising and for Google Play purchases, under [Google's Privacy Policy](https://policies.google.com/privacy). We do not sell your data for money, and we do not share it with anyone other than these providers unless required by law. See [U.S. state privacy rights](#us-state-privacy-rights) for how personalized ads are treated under some U.S. laws.
 
 - **Google Firebase** (Authentication, App Check, Crashlytics, Analytics, and Remote Config) receives the anonymous UID, attestation data, crash diagnostics, consent-gated analytics events, and configuration requests.
 - **Google ML Kit** processes screen images for its OCR scripts and all on-device translations. It may receive language-pack requests and the utilization metrics described above. Tesseract processes the other OCR source languages on the device.
@@ -133,8 +133,8 @@ Provider account settings (paid tiers, retention controls, and regions) were ver
 We process personal data on the following legal bases under KVKK Article 5 and, for users in the EEA and UK, GDPR Article 6:
 
 - **Performance of a contract:** to provide the app, Premium cloud translation, and subscription verification you request (KVKK Art. 5(2)(c); GDPR Art. 6(1)(b)).
-- **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports, and to fund the Free tier with non-personalized or limited ads (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
-- **Explicit consent:** for personalized ads and Firebase Analytics (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings; withdrawal does not affect processing before it.
+- **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports; to fund the Free tier with non-personalized or limited ads; and, where consent is not required, to measure app usage with Firebase Analytics (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
+- **Explicit consent:** for personalized ads and Firebase Analytics where consent is required and you give it (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings when that setting is shown, or by contacting hakan.ergin@gmail.com; withdrawal does not affect processing before it.
 - **Legal obligation:** where we must keep or disclose data by law (KVKK Art. 5(2)(ç); GDPR Art. 6(1)(c)).
 
 ## Transfers abroad
@@ -163,7 +163,7 @@ If you are in the EEA or UK, you also have rights under the GDPR, including acce
 
 ## U.S. state privacy rights
 
-If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To opt out, use Home → Privacy and cookie settings where shown, reset or delete your advertising ID in Android settings, or contact hakan.ergin@gmail.com. We will not treat you differently for exercising these rights.
+If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To request an opt-out, use Home → Privacy and cookie settings where shown or contact hakan.ergin@gmail.com. You can also reset or delete your advertising ID in Android settings to limit use of that identifier. We will not treat you differently for exercising these rights.
 
 ## Children and age
 
