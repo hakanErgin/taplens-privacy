@@ -12,7 +12,7 @@ This policy describes the TapLens Android app from version 0.4.7 (version code 1
 
 ## Who we are
 
-TapLens is developed and operated by **Hakan Ergin**, an individual developer based in Turkey. Hakan Ergin is the data controller for personal data processed by TapLens under the Turkish Personal Data Protection Law No. 6698 (KVKK) and, for users in the EEA and UK, under the EU and UK General Data Protection Regulation (GDPR).For questions about this policy or your data, contact **hakan.ergin@gmail.com**.
+TapLens is developed and operated by **Hakan Ergin**, an individual developer based in Turkey. Hakan Ergin is the data controller for personal data processed by TapLens under the Turkish Personal Data Protection Law No. 6698 (KVKK) and, for users in the EEA and UK, under the EU and UK General Data Protection Regulation (GDPR). For questions about this policy or your data, contact **hakan.ergin@gmail.com**.
 
 ## What TapLens does
 
@@ -78,9 +78,7 @@ On each app start, TapLens checks your consent status with Google User Messaging
 
 If UMP reports that a privacy-options entry point is required, you can reopen it in the app at **Home → Privacy and cookie settings**. The row may not be shown when UMP does not require it. You can also reset or delete your advertising ID in Android settings.
 
-> See Google's advertising policies and [How Google uses information from sites or apps that use our services](https://policies.google.com/technologies/partner-sites).
-
----
+See [Google's advertising policies](https://policies.google.com/technologies/ads) and [How Google uses information from sites or apps that use our services](https://policies.google.com/technologies/partner-sites).
 
 ## Analytics
 
@@ -92,11 +90,11 @@ The release app uses Google Firebase Analytics for app-usage events such as feat
 - **Screen capture (MediaProjection)** — requested through the Android system dialog and used only as described above.
 - **Notifications** — Android requires a persistent notification while the translator service is running; TapLens also uses notifications for app notices that you can disable.
 - **Network access** — to download language packs, reach the TapLens server for Premium, verify subscriptions, and load ads in the Free tier.
-- Advertising ID (com.google.android.gms.permission.AD_ID) — added by the Google Mobile Ads SDK and used only for ads in the Free tier, as described in Advertising and consent.
+- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK and used only for ads in the Free tier, as described in [Advertising and consent](#advertising-and-consent).
 
 ## Third parties
 
-TapLens shares data with the following processors only to provide, secure, and measure the app's functionality. We do not sell your data for money, and we do not share it with anyone other than the processors below unless required by law. See U.S. state privacy rights for how personalized ads are treated under some U.S. laws.
+TapLens shares data with the following processors only to provide, secure, and measure the app's functionality. We do not sell your data for money, and we do not share it with anyone other than the processors below unless required by law. See [U.S. state privacy rights](#us-state-privacy-rights) for how personalized ads are treated under some U.S. laws.
 
 - **Google Firebase** (Authentication, App Check, Crashlytics, Analytics, and Remote Config) receives the anonymous UID, attestation data, crash diagnostics, consent-gated analytics events, and configuration requests.
 - **Google ML Kit** processes screen images for its OCR scripts and all on-device translations. It may receive language-pack requests and the utilization metrics described above. Tesseract processes the other OCR source languages on the device.
@@ -130,28 +128,25 @@ Provider account settings (paid tiers, retention controls, and regions) were ver
 - **Crashlytics:** removal starts after Google's published 90-day period; see [Firebase's privacy and security guidance](https://firebase.google.com/support/privacy).
 - **On your device:** language settings, display preferences, and downloaded translation language packs remain until you delete them, clear app data, or uninstall TapLens. The bundled Tesseract OCR models ship inside the app and are removed when you uninstall it; clearing app data removes any extracted copies.
 
+## Legal bases for processing
 
+We process personal data on the following legal bases under KVKK Article 5 and, for users in the EEA and UK, GDPR Article 6:
 
-### 
+- **Performance of a contract:** to provide the app, Premium cloud translation, and subscription verification you request (KVKK Art. 5(2)(c); GDPR Art. 6(1)(b)).
+- **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports, and to fund the Free tier with non-personalized or limited ads (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
+- **Explicit consent:** for personalized ads and Firebase Analytics (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings; withdrawal does not affect processing before it.
+- **Legal obligation:** where we must keep or disclose data by law (KVKK Art. 5(2)(ç); GDPR Art. 6(1)(c)).
 
-> **Legal bases for processing**
->
-> We process personal data on the following legal bases under KVKK Article 5 and, for users in the EEA and UK, GDPR Article 6:
->
-> - **Performance of a contract:** to provide the app, Premium cloud translation, and subscription verification you request (KVKK Art. 5(2)(c); GDPR Art. 6(1)(b)).
-> - **Legitimate interests:** to keep the service secure and working, including authentication, App Check, abuse prevention, rate limiting, server logs, and crash reports, and to fund the Free tier with non-personalized or limited ads (KVKK Art. 5(2)(f); GDPR Art. 6(1)(f)).
-> - **Explicit consent:** for personalized ads and Firebase Analytics (KVKK Art. 5(1); GDPR Art. 6(1)(a)). You can withdraw consent at any time at Home → Privacy and cookie settings; withdrawal does not affect processing before it.
-> - **Legal obligation:** where we must keep or disclose data by law (KVKK Art. 5(2)(ç); GDPR Art. 6(1)(c)).
+## Transfers abroad
 
----
+TapLens is operated from Turkey. The service providers listed under [Third parties](#third-parties) process personal data outside Turkey, mainly in the United States and in other countries where they or their subcontractors operate:
 
-#### **Transfers abroad**
+- **Google** (Firebase, Google Cloud Run and Cloud Logging, Gemini API, ML Kit usage metrics, AdMob and UMP, and Google Play)
+- **Upstash** (managed Redis)
+- **Sentry** (server error diagnostics)
+- **Groq** and **Cerebras** (Premium cloud translation)
 
-TapLens is operated from Turkey. Our service providers (Google, Upstash, Sentry, Groq, and Cerebras) process data in the United States and other countries outside Turkey, the EEA, and the UK. We transfer personal data abroad only as permitted by KVKK Article 9 and, for users in the EEA and UK, GDPR Chapter V, relying on standard contractual clauses or other appropriate safeguards offered by these providers.
-
-
-
-
+What each provider receives, and why, is described in [Third parties](#third-parties) and [Screen capture and recognized text](#screen-capture-and-recognized-text). Under KVKK Article 11, you can ask us which third parties in Turkey or abroad your data has been transferred to.
 
 ## Your choices and rights
 
@@ -162,11 +157,13 @@ TapLens is operated from Turkey. Our service providers (Google, Upstash, Sentry,
 - Uninstall the app or clear its app data to remove data stored on your device.
 - Contact **hakan.ergin@gmail.com** to ask what data is associated with your anonymous UID or subscription, or to request deletion from TapLens records. Because the UID is anonymous, TapLens may be unable to link a request to you or fulfill it in every case; we will explain if that applies. Deleting subscription records can end Premium access on your install until the subscription is restored.
 
-> Under KVKK Article 11, you have the right to learn whether your personal data is processed and to request information about it; to learn the purpose of processing and whether data is used for that purpose; to know the third parties in Turkey or abroad to whom data is transferred; to request correction of incomplete or inaccurate data; to request deletion or destruction of data; to request that corrections or deletions be notified to those third parties; to object to a result against you arising solely from automated analysis; and to claim compensation for damage caused by unlawful processing. Send requests to hakan.ergin@gmail.com; we will respond within 30 days. If your request is rejected or not answered, you may complain to the Turkish Personal Data Protection Board (Kişisel Verileri Koruma Kurulu).
->
-> If you are in the EEA or UK, you also have rights under the GDPR, including access, rectification, erasure, restriction, objection, data portability, and withdrawal of consent, and you may lodge a complaint with your local data protection authority.
+Under KVKK Article 11, you have the right to learn whether your personal data is processed and to request information about it; to learn the purpose of processing and whether data is used for that purpose; to know the third parties in Turkey or abroad to whom data is transferred; to request correction of incomplete or inaccurate data; to request deletion or destruction of data; to request that corrections or deletions be notified to those third parties; to object to a result against you arising solely from automated analysis; and to claim compensation for damage caused by unlawful processing. Send requests to hakan.ergin@gmail.com; we will respond within 30 days. If your request is rejected, the answer is insufficient, or we do not respond in time, you may complain to the Turkish Personal Data Protection Board (Kişisel Verileri Koruma Kurulu) within 30 days of our answer, and in any case within 60 days of your request.
 
----If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To opt out, use Home → Privacy and cookie settings where shown, reset or delete your advertising ID in Android settings, or contact hakan.ergin@gmail.com. We will not treat you differently for exercising these rights.
+If you are in the EEA or UK, you also have rights under the GDPR, including access, rectification, erasure, restriction, objection, data portability, and withdrawal of consent, and you may lodge a complaint with your local data protection authority.
+
+## U.S. state privacy rights
+
+If you live in a U.S. state with a consumer privacy law (for example California, Colorado, Connecticut, Virginia, or Texas), you may have the right to know, access, correct, and delete personal information, and to opt out of the "sale" or "sharing" of personal information for targeted advertising. TapLens does not sell personal information for money. When Free-tier ads are personalized, Google AdMob's use of your advertising ID and device information may count as "sharing" or "targeted advertising" under some of these laws. To opt out, use Home → Privacy and cookie settings where shown, reset or delete your advertising ID in Android settings, or contact hakan.ergin@gmail.com. We will not treat you differently for exercising these rights.
 
 ## Children and age
 
