@@ -5,10 +5,10 @@ title: TapLens Privacy Policy
 
 # TapLens Privacy Policy
 
-**Version covered:** 0.4.7 (version code 13) and later, until this page says otherwise
-**Last updated:** September 28, 2026
+**Version covered:** 0.4.19 (version code 25) and later, until this page says otherwise
+**Last updated:** October 8, 2026
 
-This policy describes the TapLens Android app from version 0.4.7 (version code 13): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions used different translation, subscription, and ad behavior, so this page does not describe them. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last verified on September 27, 2026.
+This policy describes the TapLens Android app from version 0.4.19 (version code 25): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions are described by earlier editions of this policy. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last checked against the server's code and configuration on October 8, 2026.
 
 ## Who we are
 
@@ -21,7 +21,12 @@ TapLens is a system-overlay translator. You tap a floating button while using an
 TapLens has two tiers:
 
 - **Free** recognizes and translates text on your device with Google ML Kit. On-device translation has no daily quota. Free may show ads: a native ad on the Home screen and an ad when you return to the app, only after the consent step described in [Advertising and consent](#advertising-and-consent).
-- **Premium** is a Google Play subscription (weekly, monthly, or yearly). It has no ads. For supported languages, Premium sends recognized text to the TapLens translation service for cloud translation, with a daily allowance of cloud requests; which languages use the cloud can differ between app versions. Other language pairs, and requests made when cloud translation is unavailable or the allowance is used up, are translated on your device instead.
+- **Premium** is a Google Play subscription (weekly, monthly, or yearly). It has no ads. For supported languages, Premium sends recognized text to the TapLens translation service for cloud translation, with a daily allowance of cloud requests; which languages use the cloud can differ between app versions. Other language pairs, and requests made when cloud translation is unavailable or the allowance is used up, are translated on your device instead. You can also set Premium to **On-device**, which keeps all translation on your device and sends no recognized text to the TapLens server.
+
+TapLens has two interaction modes:
+
+- **Snapshot** (the default) uses only screen capture. It does not use an Android Accessibility service.
+- **Live** (Android 13 and newer, optional) adds the TapLens Live Accessibility service so translations can follow your scrolling and drags. See [Live mode and the Accessibility service](#live-mode-and-the-accessibility-service).
 
 Some features in this policy are switched on by server or app configuration: Premium subscriptions and purchase verification, cloud translation, and ads. They may not be active in every build or at every time. When a feature is off, the data flows this policy describes for it do not happen, with one exception: the app checks your consent status with Google User Messaging Platform on each start even while ads are off (see [Advertising and consent](#advertising-and-consent)).
 
@@ -29,14 +34,31 @@ Some features in this policy are switched on by server or app configuration: Pre
 
 Screen capture is the most sensitive operation TapLens performs:
 
-- **Capture happens only when you act.** TapLens requests a screen capture when you tap its floating button or use its translation gestures while the translator is enabled. It does not record your screen in the background.
-- **The captured image stays on the device.** TapLens passes it to on-device OCR: Google ML Kit for its supported scripts, or Tesseract with model files bundled in the app for other source languages (17 in 0.4.7; 16 in later versions, which no longer support Georgian). TapLens does not upload the captured image and does not save it to storage.
+- **Capture runs only while the translator is on.** You start the translator yourself and grant Android's screen-capture permission, and TapLens shows a persistent notification while it runs. When you stop the translator, capture stops.
+- **What starts a translation.** A translation starts when you tap the floating button or use a translation gesture. While translations are shown, TapLens also watches the captured frames on the device and, when the screen changes and then settles (for example after you scroll, or when a new message appears), captures and translates the new screen automatically so the overlay stays correct. In Live mode, scrolling in the underlying app also triggers this refresh after your finger lifts and scrolling pauses. Each refresh is a new translation: in Premium cloud translation it sends the newly recognized text to the TapLens server as described below.
+- **The captured image stays on the device.** TapLens passes it to on-device OCR: Google ML Kit for its supported scripts, or Tesseract with model files bundled in the app for other source languages (16 languages). TapLens does not upload the captured image and does not save it to storage.
 - **On-device translation stays on the device.** Free translation, and Premium translation that runs on the device, uses downloaded ML Kit language packs. The recognized text and translation do not leave the device on this path.
-- **Premium cloud translation uses the TapLens server.** Recognized text, the source and target language codes, your anonymous Firebase ID token, an App Check token, the app version, a random request key, and your IP address are sent over HTTPS to the TapLens server. The ID token and App Check token are used for authentication and abuse prevention; the IP address is used for rate limiting. The server sends the recognized text and language codes to one translation provider at a time, in a fixed fallback order: Groq (model `openai/gpt-oss-120b`), then Cerebras (`gpt-oss-120b`), then Google Gemini (`gemini-2.5-flash-lite`). The provider does not receive your Firebase UID.
+- **Premium cloud translation uses the TapLens server.** Recognized text (split into numbered text blocks), the source and target language codes, your anonymous Firebase ID token, an App Check token, the app version, your tier, the app's translation-protocol version, a random request key, and your IP address are sent over HTTPS to the TapLens server. The ID token and App Check token are used for authentication and abuse prevention; the IP address is used for rate limiting. The server sends the recognized text and language codes to one translation provider at a time, in a fixed fallback order: Groq (model `openai/gpt-oss-120b`), then Cerebras (`gpt-oss-120b`), then Google Gemini (`gemini-2.5-flash-lite`). The provider does not receive your Firebase UID.
 
-The server uses Upstash managed Redis for a translated-result cache and for operational state. The cache key is a hash of the language pair and recognized text, so it does not contain the original text; the cached value is the translation only. The cache is not linked to your Firebase UID and expires after 30 days. Separately, the server keeps a retry record keyed by your anonymous UID and request key for 60 seconds so a retried request can safely reuse the same response.
+The server uses Upstash managed Redis for a translated-result cache and for operational state. The cache key is a hash of the language pair and recognized text, so it does not contain the original text; the cached value is the translation only. The cache is not linked to your Firebase UID and expires after 30 days. Separately, so that a retried request returns the same result and is not charged twice against your allowance, the server keeps a retry record keyed by your anonymous UID and the request key. For Premium cloud requests, this record contains the translated response (not the recognized text) and expires after 48 hours.
+
+While you use Premium, the Home screen also asks the TapLens server for your remaining daily cloud allowance. That request carries your Firebase ID token and App Check token but no screen text, and it happens even when Premium is set to On-device.
 
 Please avoid translating screens containing passwords, payment details, or other secrets. Premium cloud translation transmits recognized text as described above, even though TapLens never sends the captured image.
+
+## Live mode and the Accessibility service
+
+Live is optional and available on Android 13 and newer. Before you enable it, TapLens shows an in-app disclosure describing what the service does; choosing **Continue to settings** records your choice and opens Android's Accessibility settings, where you decide whether to turn on the **TapLens Live** service. TapLens uses the Accessibility API only to provide Live; it is not an assistive tool.
+
+While enabled, the TapLens Live service receives:
+
+- **Touch positions and gesture state** while translations are visible, so that a vertical drag clears the translations and continues your drag in the app underneath, and a tap keeps the translations visible.
+- **App metadata:** the package name of the app in the foreground, its window identifier when available, and scroll and app-switch events. TapLens uses these to know when to refresh or clear translations.
+- **Whether another service is using touch exploration** (for example a screen reader), so Live can step aside and fall back to Snapshot.
+
+These touch positions and metadata stay only in device memory while the service runs. They are never saved, logged, sent to the TapLens server or any third party, or used for analytics or advertising. The service does not read screen elements or screen text, take screenshots, click, type, or create gestures. Translation itself still uses screen capture, OCR, and your selected translation route as described above.
+
+To turn Live off, choose **Snapshot** in TapLens or disable TapLens Live in Android's Accessibility settings. TapLens stores only your Live/Snapshot choice and which version of the disclosure you accepted.
 
 ## ML Kit processing and metrics
 
@@ -46,13 +68,14 @@ For source languages routed to ML Kit OCR, Google ML Kit processes the captured 
 
 Premium subscriptions are sold and billed by **Google Play**. Google processes the payment; we never receive your card or bank details.
 
-When you subscribe, or when the app restores an existing subscription, the app sends the Google Play purchase token, the subscription product, and a random operation ID to the TapLens server, together with your anonymous Firebase ID token and an App Check token. The server checks the purchase with Google Play and stores a subscription record containing:
+When you subscribe, or when the app finds an existing subscription at startup or on restore, the app sends the Google Play purchase token, the subscription product, and a random operation ID to the TapLens server, together with your anonymous Firebase ID token and an App Check token. Until the server confirms a purchase, the app keeps the purchase token and operation ID on your device so it can retry. The server checks the purchase with Google Play, acknowledges it to Google Play where needed, and stores a subscription record containing:
 
-- a one-way hash (SHA-256) of the purchase token, not the token itself;
+- a one-way hash (SHA-256) of the purchase token, not the token itself, and hashes of any earlier or replacement purchase tokens it is linked to;
 - your anonymous Firebase UID, so your install can use Premium;
-- the product, subscription state (for example active, in grace period, canceled, expired, refunded, or revoked), and expiry time.
+- the product, subscription state (for example active, in grace period, canceled, expired, or revoked; a refund is recorded as revoked), and expiry time;
+- processing details such as the operation ID last applied, a Google Play version tag, and the IDs and times of subscription events.
 
-Google Play also sends the server real-time notifications when a subscription renews, is canceled, refunded, or otherwise changes, so the record stays current. These notifications travel through Google Cloud Pub/Sub.
+Google Play also sends the server real-time notifications when a subscription renews, is canceled, refunded, or otherwise changes, so the record stays current. These notifications travel through Google Cloud Pub/Sub and contain the raw purchase token; Pub/Sub keeps undelivered or failed notifications for up to 7 days. The server's records of processed notifications list the anonymous UIDs they affected.
 
 To keep your daily cloud allowance attached to one subscription across renewals and plan changes, the server also keeps a subscription-lineage record that links purchase-token hashes to their original subscription. It contains hashes only, not purchase tokens or your UID.
 
@@ -61,6 +84,7 @@ To keep your daily cloud allowance attached to one subscription across renewals 
 TapLens has no user accounts. It uses:
 
 - **An anonymous Firebase UID.** On first launch, Firebase Authentication creates a random identifier that is not linked to your name, email, or Google account. The server uses it to authenticate requests, link your install to a verified subscription, apply rate limits, and prevent abuse.
+- **A Firebase Analytics app-instance ID**, created by Firebase Analytics and used as described in [Analytics](#analytics).
 - **App Check and Play Integrity attestation.** Firebase App Check obtains a short-lived token to help verify that requests come from a genuine copy of the app on a genuine device.
 - **An advertising ID.** When ads are enabled, the Google Mobile Ads SDK can start after the consent step and may read the Android advertising ID for ad serving and measurement. Ads are shown only in the Free tier. You can reset or delete this identifier in your Android settings.
 
@@ -68,13 +92,13 @@ Your selected source and target languages and display preferences are stored on 
 
 ## Crash reports
 
-The release app uses Google Firebase Crashlytics to receive crash reports when the app fails unexpectedly. Reports may include device model, operating system version, app version, and state associated with the crash. Crash reports do not intentionally include the text you translated or the captured image. Google's [Firebase privacy and security guidance](https://firebase.google.com/support/privacy) says Crashlytics keeps crash stack traces, extracted minidump data, and associated identifiers for 90 days before starting removal from live and backup systems. NDK minidump data is kept only while the crash is processed; the 90-day period is not a promise that every copy disappears exactly on that day.
+The release app uses Google Firebase Crashlytics to receive crash reports when the app fails unexpectedly, and diagnostic reports for non-fatal errors. On startup it may also report why the previous session ended (for example a crash, an "app not responding" event, or low memory) together with recent app-state breadcrumbs, such as translator state names and counts. Reports may include device model, operating system version, app version, error types, and stack traces. TapLens does not include the text you translated, the captured image, or the names of other apps in these reports. Google's [Firebase privacy and security guidance](https://firebase.google.com/support/privacy) says Crashlytics keeps crash stack traces, extracted minidump data, and associated identifiers for 90 days before starting removal from live and backup systems. NDK minidump data is kept only while the crash is processed; the 90-day period is not a promise that every copy disappears exactly on that day.
 
 ## Advertising and consent
 
 Ads appear only in the Free tier. TapLens may show a native ad on the Home screen and an app-open ad when you return to the app. The Premium tier, and the app before it knows your tier, does not show ads.
 
-On each app start, TapLens checks your consent status with Google User Messaging Platform (UMP), which asks for consent where required. This check happens in every tier, even while ads are off, because the same consent status also controls [analytics](#analytics). In versions after 0.4.7 (version code 13), TapLens starts the Google Mobile Ads SDK and requests ads only when the app knows you are on Free, the consent step allows ads, and an ad format is enabled. If you move to Premium, TapLens stops requesting ads and discards any ad it has already loaded. In 0.4.7 (13), starting the SDK did not depend on your tier, so it could also happen in Premium or before the app knew your tier; ads were still shown only in Free. AdMob may receive the advertising ID, IP address, device information, and consent status to serve and measure ads. You can decline or withdraw consent. Declining does not turn off ads in the Free tier: where Google's consent tools allow an ad request, Google serves non-personalized or limited ads instead of personalized ones.
+On each app start, TapLens checks your consent status with Google User Messaging Platform (UMP), which asks for consent where required. This check happens in every tier, even while ads are off, because the same consent status also controls [analytics](#analytics). TapLens starts the Google Mobile Ads SDK, requests ads, and fetches ad settings from Firebase Remote Config only when the app knows you are on Free, the consent step allows ads, and an ad format is enabled. If you move to Premium, TapLens stops requesting ads and discards any ad it has already loaded. AdMob may receive the advertising ID, IP address, device information, and consent status to serve and measure ads. You can decline or withdraw consent. Declining does not turn off ads in the Free tier: where Google's consent tools allow an ad request, Google serves non-personalized or limited ads instead of personalized ones.
 
 If UMP reports that a privacy-options entry point is required, you can reopen it in the app at **Home → Privacy and cookie settings**. The row may not be shown when UMP does not require it. You can also reset or delete your advertising ID in Android settings.
 
@@ -82,15 +106,18 @@ See [Google's advertising policies](https://policies.google.com/technologies/ads
 
 ## Analytics
 
-The release app uses Google Firebase Analytics for app-usage events such as feature usage, error rates, timing, and selected source and target language codes. Analytics storage stays off until the consent step allows it, or until consent is determined not to be required. Events do not include screen images, recognized screen text, or translated text.
+The release app uses Google Firebase Analytics for app-usage events: translation success and failure types, timing and block counts, selected source and target language codes, tier, paywall and subscription events (for example paywall shown, purchase, restore, renewal recovery, or cancellation, with plan type), daily usage counts, and app opens with the hour of day and days since install. Analytics storage stays off until the consent step allows it, or until consent is determined not to be required. Events do not include screen images, recognized screen text, translated text, the names of other apps, or Live touch and app metadata.
 
 ## Android permissions
 
 - **Display over other apps** — to show the floating button and translation overlay.
 - **Screen capture (MediaProjection)** — requested through the Android system dialog and used only as described above.
+- **Foreground service (media projection)** — keeps screen capture running only while the translator is on, with its persistent notification.
 - **Notifications** — Android requires a persistent notification while the translator service is running; TapLens also uses notifications for app notices that you can disable.
-- **Network access** — to download language packs, reach the TapLens server for Premium, verify subscriptions, and load ads in the Free tier.
-- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK, which may access the advertising ID for ad serving and measurement. Ads are shown only in the Free tier; in 0.4.7 (13), the SDK could also start in Premium or before the app knew your tier, as described in [Advertising and consent](#advertising-and-consent).
+- **Accessibility service (TapLens Live)** — optional and off unless you enable it in Android settings; used only as described in [Live mode and the Accessibility service](#live-mode-and-the-accessibility-service).
+- **Network access and network state** — to download language packs, reach the TapLens server for Premium, verify subscriptions, load ads in the Free tier, and check whether a connection is available.
+- **Google Play Billing** — added by the Google Play Billing library to sell and restore subscriptions.
+- **Advertising ID** (`com.google.android.gms.permission.AD_ID`) — added by the Google Mobile Ads SDK, which may access the advertising ID for ad serving and measurement. Ads are shown only in the Free tier.
 
 ## Third parties
 
@@ -100,6 +127,7 @@ TapLens shares data with the following service providers only to provide, secure
 - **Google ML Kit** processes screen images for its OCR scripts and all on-device translations. It may receive language-pack requests and the utilization metrics described above. Tesseract processes the other OCR source languages on the device.
 - **Google AdMob and UMP** receive advertising and device information and consent status to show Free-tier ads and obtain consent where required.
 - **Google Play** processes subscription purchases and, through the Google Play Developer API and real-time notifications (delivered with Google Cloud Pub/Sub), confirms subscription status to the TapLens server.
+- **Google Cloud Pub/Sub** delivers Google Play subscription notifications, which contain purchase tokens, to the TapLens server.
 - **Google Cloud Run and Cloud Logging** host the TapLens server and receive hosting and request metadata, which can include the client IP address, route, status, and latency. Cloud Logging keeps these records for 30 days.
 - **Upstash managed Redis** stores the translated-result cache, retry records, IP-based rate-limit state, daily-usage counters, subscription records, and subscription-lineage records described in this policy.
 - **Sentry** receives server error and sampled performance diagnostics. Translation request bodies are reduced to language codes and counts before error events are sent, and Sentry's default personal-data collection is disabled; no Sentry retention period is promised here.
@@ -118,7 +146,8 @@ Provider account settings (paid tiers, retention controls, and regions) were ver
 ## Data retention
 
 - **Translated-result cache:** expires after 30 days; hash-derived key, translation only, not linked to your Firebase UID.
-- **Retry records:** 60 seconds, keyed by your anonymous UID and request key.
+- **Retry records:** up to 48 hours for Premium cloud requests, keyed by your anonymous UID and request key, containing the translated response.
+- **Subscription notifications in Pub/Sub:** up to 7 days for undelivered or failed notifications.
 - **Daily cloud-usage counters:** linked to your subscription lineage, reset each UTC day, and deleted about 48 hours after that day ends. Per-request accounting records use hashes of your UID and request key and expire after 48 hours. IP-based rate-limit state follows the server's short operational windows. Aggregate service-level usage and cost counters, which contain no user identifiers, are kept for 90 days.
 - **Subscription records:** kept while the subscription is active or recoverable, and for up to 400 days after it reaches a final state (such as expired, refunded, or revoked), so renewals, refunds, and restores can be handled correctly.
 - **Subscription-lineage records:** kept without a fixed expiry so a subscription's daily allowance cannot be reset by replacing or renewing it. They contain purchase-token hashes only. You can ask us to delete them; see below.
@@ -126,7 +155,7 @@ Provider account settings (paid tiers, retention controls, and regions) were ver
 - **Provider data:** Premium text sent to a provider follows that provider's terms and account settings described above.
 - **Sentry:** retention follows its service and account settings; TapLens does not promise a retention period.
 - **Crashlytics:** removal starts after Google's published 90-day period; see [Firebase's privacy and security guidance](https://firebase.google.com/support/privacy).
-- **On your device:** language settings, display preferences, and downloaded translation language packs remain until you delete them, clear app data, or uninstall TapLens. The bundled Tesseract OCR models ship inside the app and are removed when you uninstall it; clearing app data removes any extracted copies.
+- **On your device:** language settings and recent language pairs, display preferences, your Live/Snapshot and Premium translation choices, consent status, cached subscription status and cloud-allowance counts, ad-frequency counters, install date, purchase tokens waiting for server confirmation, a short diagnostic breadcrumb log, and downloaded translation language packs remain until they are replaced, you delete them, clear app data, or uninstall TapLens. The bundled Tesseract OCR models ship inside the app and are removed when you uninstall it; clearing app data removes any extracted copies.
 
 ## Legal bases for processing
 
@@ -151,6 +180,8 @@ What each provider receives, and why, is described in [Third parties](#third-par
 ## Your choices and rights
 
 - Manage or cancel your subscription in Google Play. Canceling stops renewal; it does not delete the server records described above.
+- Choose **Snapshot** to turn off the TapLens Live Accessibility service, or disable it in Android's Accessibility settings.
+- In Premium, choose **On-device** translation to keep recognized text off the TapLens server.
 - Where UMP requires it, reopen consent choices from **Home → Privacy and cookie settings**. You can decline or withdraw analytics and personalized-ad consent.
 - Delete downloaded translation language packs from the Language Picker screen. Bundled OCR models are part of the app and cannot be deleted there.
 - Reset or delete your advertising ID in Android settings.
@@ -177,4 +208,4 @@ We may update this policy as TapLens changes. The last-updated date at the top w
 
 ---
 
-*This policy applies to the TapLens Android app (`app.taplens`, and its closed-test edition `app.taplens.closedtest`) from version 0.4.7 (version code 13).*
+*This policy applies to the TapLens Android app (`app.taplens`, and its closed-test edition `app.taplens.closedtest`) from version 0.4.19 (version code 25).*
