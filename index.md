@@ -108,6 +108,8 @@ See [Google's advertising policies](https://policies.google.com/technologies/ads
 
 The release app uses Google Firebase Analytics for app-usage events: translation success and failure types, timing and block counts, selected source and target language codes, tier, paywall and subscription events (for example paywall shown, purchase, restore, renewal recovery, or cancellation, with plan type), daily usage counts, and app opens with the hour of day and days since install. Analytics storage stays off until the consent step allows it, or until consent is determined not to be required. Events do not include screen images, recognized screen text, translated text, the names of other apps, or Live touch and app metadata.
 
+**Version 0.4.19 (version code 25):** in that version, where the consent step applies (for example in the EEA and UK), declining or withdrawing consent did not turn analytics off. App-usage events continued to be sent with the Firebase Analytics app-instance ID and could include the advertising ID. On a first start, a few automatic events (first open, session start and screen view) could also be sent before the consent step finished, without the app-instance ID but with the advertising ID. Version 0.4.20 (version code 26) fixes this. On a new install, analytics stays off until the consent step finishes. On later starts, the choice you made earlier applies while consent is checked again. If you decline or withdraw consent, no analytics data is sent. The first time version 0.4.20 or later starts after an update from an earlier version, the earlier setting can apply for a fraction of a second before TapLens turns analytics off.
+
 ## Android permissions
 
 - **Display over other apps** — to show the floating button and translation overlay.
