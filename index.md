@@ -5,10 +5,10 @@ title: TapLens Privacy Policy
 
 # TapLens Privacy Policy
 
-**Version covered:** 0.4.19 (version code 25) and later, until this page says otherwise
+**Version covered:** 0.4.23 (version code 29) and later, until this page says otherwise
 **Last updated:** October 13, 2026
 
-This policy describes the TapLens Android app from version 0.4.19 (version code 25): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions are described by earlier editions of this policy. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last checked against the server's code and configuration on October 8, 2026.
+This policy describes the TapLens Android app from version 0.4.23 (version code 29): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions are described by earlier editions of this policy. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last checked against the server's code and configuration on October 8, 2026.
 
 ## Who we are
 
@@ -212,4 +212,4 @@ We may update this policy as TapLens changes. The last-updated date at the top w
 
 ---
 
-*This policy applies to the TapLens Android app (`app.taplens`, and its closed-test edition `app.taplens.closedtest`) from version 0.4.19 (version code 25).*
+*This policy applies to the TapLens Android app (`app.taplens`, and its closed-test edition `app.taplens.closedtest`) from version 0.4.23 (version code 29).*
