@@ -6,7 +6,7 @@ title: TapLens Privacy Policy
 # TapLens Privacy Policy
 
 **Version covered:** 0.4.19 (version code 25) and later, until this page says otherwise
-**Last updated:** October 8, 2026
+**Last updated:** October 13, 2026
 
 This policy describes the TapLens Android app from version 0.4.19 (version code 25): the release app (`app.taplens`) and its closed-test edition (`app.taplens.closedtest`). Earlier versions are described by earlier editions of this policy. The TapLens server configuration (translation providers, caches, and log retention) can change independently of the app; the server details below were last checked against the server's code and configuration on October 8, 2026.
 
@@ -56,7 +56,7 @@ While enabled, the TapLens Live service receives:
 - **App metadata:** the package name of the app in the foreground, its window identifier when available, and scroll and app-switch events. TapLens uses these to know when to refresh or clear translations.
 - **Whether another service is using touch exploration** (for example a screen reader), so Live can step aside and fall back to Snapshot.
 
-These touch positions and metadata stay only in device memory while the service runs. They are never saved, logged, sent to the TapLens server or any third party, or used for analytics or advertising. The service does not read screen elements or screen text, take screenshots, click, type, or create gestures. Translation itself still uses screen capture, OCR, and your selected translation route as described above.
+Touch positions, app package names, and window identifiers stay only in device memory while the service runs. They are never saved, logged, sent to the TapLens server or any third party, or used for analytics or advertising. Live also keeps a short diagnostic log on your device of when it refreshes or stops, such as "refreshed after a scroll" or "stopped because the app changed", with times, durations, and reason names. This log never includes app names, window identifiers, touch positions, or screen content. It leaves your device only with a crash report (see [Crash reports](#crash-reports)) or when you share it yourself. The service does not read screen elements or screen text, take screenshots, click, type, or create gestures. Translation itself still uses screen capture, OCR, and your selected translation route as described above.
 
 To turn Live off, choose **Snapshot** in TapLens or disable TapLens Live in Android's Accessibility settings. TapLens stores only your Live/Snapshot choice and which version of the disclosure you accepted.
 
@@ -92,7 +92,9 @@ Your selected source and target languages and display preferences are stored on 
 
 ## Crash reports
 
-The release app uses Google Firebase Crashlytics to receive crash reports when the app fails unexpectedly, and diagnostic reports for non-fatal errors. On startup it may also report why the previous session ended (for example a crash, an "app not responding" event, or low memory) together with recent app-state breadcrumbs, such as translator state names and counts. Reports may include device model, operating system version, app version, error types, and stack traces. TapLens does not include the text you translated, the captured image, or the names of other apps in these reports. Google's [Firebase privacy and security guidance](https://firebase.google.com/support/privacy) says Crashlytics keeps crash stack traces, extracted minidump data, and associated identifiers for 90 days before starting removal from live and backup systems. NDK minidump data is kept only while the crash is processed; the 90-day period is not a promise that every copy disappears exactly on that day.
+The release app uses Google Firebase Crashlytics to receive crash reports when the app fails unexpectedly, and diagnostic reports for non-fatal errors. On startup it may also report why the previous session ended (for example a crash, an "app not responding" event, or low memory) together with recent app-state breadcrumbs, such as translator state names, Live refresh and stop markers, counts, and timings. Reports may include device model, operating system version, app version, error types, and stack traces. TapLens does not include the text you translated, the captured image, or the names of other apps in these reports. Google's [Firebase privacy and security guidance](https://firebase.google.com/support/privacy) says Crashlytics keeps crash stack traces, extracted minidump data, and associated identifiers for 90 days before starting removal from live and backup systems. NDK minidump data is kept only while the crash is processed; the 90-day period is not a promise that every copy disappears exactly on that day.
+
+**Sharing a diagnostic log.** **Home → Settings** includes **Share diagnostic log**. It creates a text file from the on-device breadcrumb log: event names, reason names, counts, and timings, each with your local time and time-zone offset. A header lists the app version, device model, Android version, translation tier, and language pair. The file never contains translated text, captured images, or other apps' names. Nothing is sent automatically: the file leaves your device only if you share it, and it goes only where you choose to send it. TapLens keeps its copy of an exported file in the app's cache. The next export deletes copies older than a day, and Android may clear the cache sooner; clearing app data or uninstalling TapLens removes them too.
 
 ## Advertising and consent
 
