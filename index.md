@@ -6,7 +6,7 @@ title: TapLens Privacy Policy
 # TapLens Privacy Policy
 
 **Version covered:** 0.5.0 (version code 31) and later, until this page says otherwise
-**Last updated:** October 25, 2026
+**Last updated:** October 31, 2026
 
 This policy describes the TapLens Android app (`app.taplens`) from version 0.5.0 (version code 31). Earlier versions are described in [Earlier versions](#earlier-versions-04x).
 
@@ -49,7 +49,7 @@ To turn Live off, choose **Snapshot** in TapLens or disable TapLens Live in Andr
 
 Google ML Kit processes the captured image (for its supported scripts), the recognized text and every translation on the device. Tesseract uses model files bundled with the app and does not download anything.
 
-ML Kit may contact Google to download translation language packs, receive model updates and check device compatibility. It also sends Google utilization and performance metrics. Google's [ML Kit Terms & Privacy](https://developers.google.com/ml-kit/terms) and [ML Kit Android data-disclosure guidance](https://developers.google.com/ml-kit/android-data-disclosure) describe these metrics with categories such as device and application information, device or other identifiers, latency and other performance metrics, API configuration, feature input and output size, feature version, event type, error codes, and for translation, the configured source and target languages. Those published categories do not list the recognized screen text or captured image as a metric field. TapLens does not control the exact metric payload or its retention period.
+ML Kit may contact Google to download translation language packs, receive model updates and check device compatibility. It also sends Google utilization and performance metrics. Google's [ML Kit Terms & Privacy](https://developers.google.com/ml-kit/terms) and [ML Kit Android data-disclosure guidance](https://developers.google.com/ml-kit/android-data-disclosure) describe these metrics with categories such as device and application information, device or other identifiers, latency and other performance metrics, API configuration, feature input and output size, feature version, event type, error codes, and for translation, the configured source and target languages. Those published categories do not list the recognized screen text or captured image as a metric field. TapLens does not control the exact metric payload or its retention period. TapLens does not process or have any access to these metrics; Google may collect them independently under its own terms.
 
 ## Purchases
 
@@ -76,11 +76,11 @@ TapLens does not request the advertising ID, location, contacts or storage permi
 
 ## Contacting support
 
-The **Contact support** row opens your email app with the support address. An email you send is ordinary correspondence: we use it to answer you and keep it only as long as needed for that.
+The **Contact support** row opens your email app with the support address. An email you send is ordinary correspondence. We process it on the basis of our legitimate interest in answering you, and delete it 12 months after the last message in the conversation.
 
 ## Your choices and rights
 
-- Choose **Snapshot**, or disable TapLens Live in Android's Accessibility settings, to turn off the Accessibility service.
+- Choose **Snapshot**, or disable TapLens Live in Android's Accessibility settings, to turn off the Accessibility service. This withdraws your consent to Live at any time.
 - Delete downloaded translation language packs from the Language Picker.
 - Uninstall the app or clear its app data to remove everything TapLens stores on your device.
 - Request refunds and view your purchase in Google Play.
